@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Navbar from './components/data/ui/Navbar'
 import Starfield from './components/data/ui/Starfield'
-import WeightInput from "./components/Input/WeightInput";
+import WeightInput from "./components/input/WeightInput";
 import PlanetGrid from './components/planets/PlanetGrid';
 import { useWeightCalc } from './components/hooks/useWeightcalc';
 
