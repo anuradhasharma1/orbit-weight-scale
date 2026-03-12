@@ -3,11 +3,11 @@ import { getAnimationType } from "../utils/conversions";
 
 const AstronautMoji = ({ type }) => {
   const mojiMap = {
-    crushed: "😵",
-    heavy: "😓",
-    normal: "🧑‍🚀",
-    light: "😄",
-    floating: "🤸",
+    crushed: "/emojis/crushed.png",
+    heavy: "emojis/vinyl.png",
+    normal: "emojis/same.png",
+    light: "emojis/material.png",
+    floating: "emojis/float.png",
   };
   const classMap = {
     crushed: "astro-crushed",
@@ -16,9 +16,16 @@ const AstronautMoji = ({ type }) => {
     light: "astro-light",
     floating: "astro-floating",
   };
+
+  const value = mojiMap[type];
+  const isImage = value?.endsWith(".png") || value?.endsWith(".svg");
+
   return (
     <span className={`astro-emoji ${classMap[type]}`}>
-      {mojiMap[type]}
+      {isImage
+        ? <img src={value} alt={type} width={24} height={24} style={{ display: "inline-block", filter: type === "floating" ? "invert(1)" : "none" }} />
+        : value
+      }
     </span>
   );
 };
@@ -32,8 +39,8 @@ const PlanetCard = ({ planet, weight, unit, index }) => {
     planet.gravityMultiplier > 1
       ? `+${((planet.gravityMultiplier - 1) * 100).toFixed(0)}% gravity`
       : planet.gravityMultiplier === 1
-      ? "baseline"
-      : `-${((1 - planet.gravityMultiplier) * 100).toFixed(0)}% gravity`;
+        ? "baseline"
+        : `-${((1 - planet.gravityMultiplier) * 100).toFixed(0)}% gravity`;
 
   return (
     <div
@@ -47,12 +54,16 @@ const PlanetCard = ({ planet, weight, unit, index }) => {
     >
       {/* Planet orb */}
       <div className="planet-orb-wrapper">
-        <div
-          className="planet-orb"
-          style={{ background: planet.textureGradient }}
-        >
-          {planet.id === "saturn" && <div className="saturn-ring" style={{ borderColor: planet.color }} />}
-        </div>
+        <img
+          src={planet.icon}
+          alt={planet.name}
+          width={64}
+          height={64}
+          style={{ borderRadius: "50%", position: "relative", zIndex: 1 }}
+        />
+        {planet.id === "saturn" && (
+          <div className="saturn-ring" style={{ borderColor: planet.color }} />
+        )}
         <div className="planet-glow" style={{ background: planet.glowColor }} />
       </div>
 
@@ -65,14 +76,21 @@ const PlanetCard = ({ planet, weight, unit, index }) => {
         <div className="weight-display">
           <span className="weight-value">{weight}</span>
           <span className="weight-unit">{unit}</span>
-          {hasWeight && <AstronautMoji type={animType} />}
+          <AstronautMoji type={animType} />
         </div>
       ) : (
         <div className="weight-placeholder">— {unit}</div>
       )}
 
       {/* Gravity tag */}
-      <div className="gravity-tag" style={{ color: planet.color, borderColor: `${planet.color}44`, background: `${planet.glowColor}` }}>
+      <div
+        className="gravity-tag"
+        style={{
+          color: planet.color,
+          borderColor: `${planet.color}44`,
+          background: `${planet.glowColor}`,
+        }}
+      >
         {multiplierLabel}
       </div>
 
