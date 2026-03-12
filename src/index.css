@@ -1,1 +1,446 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Variables ── */
+:root {
+  --bg: #020408;
+  --surface: #0b0f1a;
+  --surface2: #111827;
+  --border: #1e2d40;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --accent: #38bdf8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Keyframes ── */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.6); }
+}
+@keyframes shootingStar {
+  0% { transform: translateX(0) translateY(0); opacity: 1; width: 3px; }
+  100% { transform: translateX(600px) translateY(200px); opacity: 0; width: 200px; }
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes orb-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+@keyframes float-astronaut {
+  0%, 100% { transform: translateY(0px) rotate(-5deg); }
+  50% { transform: translateY(-8px) rotate(5deg); }
+}
+@keyframes bounce-astronaut {
+  0%, 100% { transform: translateY(0px) scaleY(1); }
+  50% { transform: translateY(-4px) scaleY(1.1); }
+}
+@keyframes crushed-astronaut {
+  0%, 100% { transform: scaleY(0.7) scaleX(1.2); }
+  50% { transform: scaleY(0.65) scaleX(1.25); }
+}
+@keyframes heavy-astronaut {
+  0%, 100% { transform: scaleY(0.88) translateY(2px); }
+  50% { transform: scaleY(0.92) translateY(0px); }
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.15); }
+}
+
+/* ── Starfield ── */
+.starfield {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle var(--dur, 3s) ease-in-out infinite;
+}
+.shooting-star {
+  position: absolute;
+  left: -10px;
+  height: 1.5px;
+  background: linear-gradient(to right, transparent, white, transparent);
+  border-radius: 999px;
+  opacity: 0;
+  animation: shootingStar linear infinite;
+}
+
+/* ── App Shell ── */
+.app {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+/* ── Navbar ── */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  background: rgba(2, 4, 8, 0.7);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.navbar-icon { font-size: 1.5rem; }
+.navbar-title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text);
+}
+.github-link {
+  font-size: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+.github-link:hover {
+  color: var(--text);
+  border-color: #38bdf866;
+  background: #38bdf810;
+}
+
+/* ── Main ── */
+.main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 60px 24px 40px;
+}
+
+/* ── Hero ── */
+.hero {
+  text-align: center;
+  margin-bottom: 52px;
+}
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.hero-accent {
+  background: linear-gradient(135deg, #38bdf8, #818cf8, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── Input Section ── */
+.input-section {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.input-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.input-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.weight-input {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  width: 200px;
+  padding: 16px 60px 16px 24px;
+  border-radius: 16px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: textfield;
+  letter-spacing: -1px;
+}
+.weight-input::-webkit-outer-spin-button,
+.weight-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.weight-input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px #38bdf818;
+}
+.weight-input::placeholder { color: #334155; }
+.input-unit {
+  position: absolute;
+  right: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.unit-toggle {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  transition: border-color 0.2s;
+}
+.unit-toggle:hover { border-color: #38bdf866; }
+.active-unit { color: #38bdf8; font-weight: 600; }
+.inactive-unit { color: var(--muted); }
+.unit-divider { color: var(--border); }
+.input-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #334155;
+  margin-top: 12px;
+}
+
+/* ── Planet Grid ── */
+.planet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+/* ── Planet Card ── */
+.planet-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px 20px 20px;
+  cursor: pointer;
+  animation: cardIn 0.5s ease both;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+  text-align: center;
+}
+.planet-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--planet-color, #38bdf8);
+  box-shadow: 0 8px 32px var(--planet-glow, #38bdf822);
+}
+.earth-card {
+  border-color: #34d39944;
+  background: linear-gradient(135deg, #0b0f1a, #0b1a12);
+}
+
+/* ── Planet Orb ── */
+.planet-orb-wrapper {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+}
+.planet-orb {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  animation: orb-pulse 4s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+  box-shadow: inset -8px -8px 16px rgba(0,0,0,0.4), inset 4px 4px 12px rgba(255,255,255,0.15);
+}
+.planet-glow {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  filter: blur(12px);
+  animation: glow-pulse 4s ease-in-out infinite;
+  z-index: 0;
+}
+.saturn-ring {
+  position: absolute;
+  top: 50%;
+  left: -18%;
+  width: 136%;
+  height: 22px;
+  border-radius: 50%;
+  border: 3px solid;
+  transform: translateY(-50%) rotateX(70deg);
+  opacity: 0.7;
+  z-index: 2;
+}
+
+/* ── Planet Info ── */
+.planet-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+  margin-bottom: 2px;
+}
+.planet-desc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+/* ── Weight Display ── */
+.weight-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.weight-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--planet-color, var(--accent));
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.weight-unit {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  align-self: flex-end;
+  padding-bottom: 3px;
+}
+.weight-placeholder {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e2d40;
+  margin-bottom: 12px;
+  letter-spacing: -1px;
+}
+
+/* ── Astronaut Emoji ── */
+.astro-emoji {
+  font-size: 1.2rem;
+  display: inline-block;
+  margin-left: 4px;
+}
+.astro-floating { animation: float-astronaut 2s ease-in-out infinite; }
+.astro-light { animation: bounce-astronaut 1.5s ease-in-out infinite; }
+.astro-normal { animation: bounce-astronaut 2.5s ease-in-out infinite; }
+.astro-heavy { animation: heavy-astronaut 2s ease-in-out infinite; }
+.astro-crushed { animation: crushed-astronaut 1s ease-in-out infinite; }
+
+/* ── Gravity Tag ── */
+.gravity-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid;
+  margin-bottom: 10px;
+}
+
+/* ── Flip Hint ── */
+.flip-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: #1e3a5f;
+  letter-spacing: 1px;
+}
+.planet-card:hover .flip-hint { color: var(--muted); }
+
+/* ── Fun Fact Overlay ── */
+.fun-fact-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  gap: 10px;
+  backdrop-filter: blur(4px);
+  animation: cardIn 0.25s ease;
+  z-index: 10;
+}
+.fun-fact-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.5);
+}
+.fun-fact-emoji { font-size: 2.4rem; }
+.fun-fact-text {
+  font-size: 0.88rem;
+  color: rgba(0,0,0,0.85);
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.5;
+}
+.fun-fact-gravity {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(0,0,0,0.6);
+  margin-top: 4px;
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #1e3a5f;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .navbar { padding: 16px 20px; }
+  .main { padding: 40px 16px 32px; }
+  .hero-title { font-size: 2rem; letter-spacing: -1px; }
+  .planet-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .weight-input { width: 160px; font-size: 2.2rem; }
+}
