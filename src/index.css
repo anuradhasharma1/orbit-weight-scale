@@ -440,11 +440,3 @@ body {
   color: #1e3a5f;
 }
 
-/* ── Responsive ── */
-@media (max-width: 640px) {
-  .navbar { padding: 16px 20px; }
-  .main { padding: 40px 16px 32px; }
-  .hero-title { font-size: 2rem; letter-spacing: -1px; }
-  .planet-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .weight-input { width: 160px; font-size: 2.2rem; }
-}
