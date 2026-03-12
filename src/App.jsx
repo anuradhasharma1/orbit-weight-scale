@@ -43,7 +43,7 @@ function App() {
 
           {/* Footer */}
           <footer className="footer">
-            <p>Built with React + Vite + Tailwind · Gravity data from NASA ~ Anuradha </p>
+            <p>Built with React + Vite + Tailwind · Gravity data from NASA ~ ©Anuradha </p>
           </footer>
 
         </main>

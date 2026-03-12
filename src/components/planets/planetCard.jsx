@@ -6,8 +6,8 @@ const AstronautMoji = ({ type }) => {
     crushed: "/emojis/crushed.png",
     heavy: "emojis/vinyl.png",
     normal: "emojis/same.png",
-    light: "emojis/material.png",
-    floating: "emojis/float.png",
+    light: "emojis/float.png",
+    floating: "emojis/material.png",
   };
   const classMap = {
     crushed: "astro-crushed",
@@ -23,7 +23,7 @@ const AstronautMoji = ({ type }) => {
   return (
     <span className={`astro-emoji ${classMap[type]}`}>
       {isImage
-        ? <img src={value} alt={type} width={24} height={24} style={{ display: "inline-block", filter: type === "floating" ? "invert(1)" : "none" }} />
+        ? <img src={value} alt={type} width={24} height={24} style={{ display: "inline-block", filter: type === "light" ? "invert(1)" : "none" }} />
         : value
       }
     </span>
@@ -61,10 +61,7 @@ const PlanetCard = ({ planet, weight, unit, index }) => {
           height={64}
           style={{ borderRadius: "50%", position: "relative", zIndex: 1 }}
         />
-        {planet.id === "saturn" && (
-          <div className="saturn-ring" style={{ borderColor: planet.color }} />
-        )}
-        <div className="planet-glow" style={{ background: planet.glowColor }} />
+        
       </div>
 
       {/* Name */}
