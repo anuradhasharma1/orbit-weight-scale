@@ -262,6 +262,9 @@ body {
   overflow: hidden;
   text-align: center;
 }
+
+
+
 .planet-card:hover {
   transform: translateY(-5px);
   border-color: var(--planet-color, #38bdf8);
