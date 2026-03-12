@@ -2,6 +2,7 @@
 export const planets = [
     {
         id: "Sun",
+        name: "Sun",
         icon: "/planets/sun.png",
         gravityMultiplier: 27.9,
         color: "#FDB813",

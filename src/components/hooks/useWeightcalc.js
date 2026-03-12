@@ -1,6 +1,5 @@
 import { useState, useCallback } from "react";
 import { kgToLbs, lbsToKg, calcPlanetWeight } from "../utils/conversions";
-import { planets } from "../data/planets";
 
 export const useWeightCalc = () => {
   const [inputValue, setInputValue] = useState("");

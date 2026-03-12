@@ -1,13 +1,17 @@
-
 const WeightInput = ({ inputValue, setInputValue, unit, toggleUnit }) => {
     return (
         <div className="input-section">
             <p className="input-label">Enter Your Weight On Earth</p>
             <div className="input-row">
                 <div className="input-wrapper">
-                    <input type="number" min="1" max="999" placeholder="70" value={inputValue}
+                    <input
+                        type="number"
+                        min="1"
+                        max="999"
+                        placeholder="70"
+                        value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
-                        className="Weight-input"
+                        className="weight-input"  /* FIX: was "Weight-input" (capital W) */
                     />
                     <span className="input-unit">{unit}</span>
                 </div>
